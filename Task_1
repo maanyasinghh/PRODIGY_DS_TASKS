@@ -1,0 +1,23 @@
+import pandas as pd
+import matplotlib.pyplot as plt
+import requests
+import io
+
+url = 'https://raw.githubusercontent.com/pandas-dev/pandas/main/pandas/tests/io/data/csv/tips.csv'
+response = requests.get(url)
+
+df = pd.read_csv(io.StringIO(response.text))
+
+plt.figure(figsize=(8, 6))
+df['total_bill'].hist(bins=20)
+plt.title('Distribution of Total Bill Amounts')
+plt.xlabel('Total Bill')
+plt.ylabel('Frequency')
+plt.show()
+
+plt.figure(figsize=(8, 6))
+df['sex'].value_counts().plot(kind='bar')
+plt.title('Distribution of Customers by Sex')
+plt.xlabel('Sex')
+plt.ylabel('Count')
+plt.show()
